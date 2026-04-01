@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820">
+  <defs>
+    <style>
+      .title { font: 700 30px Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 16px Arial, sans-serif; fill: #334155; }
+      .box-title { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+      .box-text { font: 400 13px Arial, sans-serif; fill: #1e293b; }
+      .lane { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 2; rx: 12; }
+      .box { fill: #ffffff; stroke: #64748b; stroke-width: 2; rx: 10; }
+      .azure { fill: #eff6ff; stroke: #2563eb; }
+      .realtime { fill: #ecfeff; stroke: #0891b2; }
+      .ops { fill: #f0fdf4; stroke: #16a34a; }
+      .arrow { stroke: #334155; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+      .arrow-dashed { stroke: #475569; stroke-width: 2.2; fill: none; stroke-dasharray: 8 6; marker-end: url(#arrowhead); }
+      .note { font: 600 12px Arial, sans-serif; fill: #475569; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#334155" />
+    </marker>
+  </defs>
+
+  <text x="40" y="50" class="title">Arquitectura Event-Driven .NET (Functions + Service Bus + SignalR + Logic Apps)</text>
+  <text x="40" y="78" class="subtitle">Patrón recomendado para interview senior: cómputo desacoplado, fan-out y notificaciones en tiempo real.</text>
+
+  <rect x="30" y="110" width="1340" height="660" class="lane" />
+
+  <rect x="70" y="180" width="210" height="90" class="box">
+    <text x="85" y="212" class="box-title">Producer / API</text>
+    <text x="85" y="235" class="box-text">Publica ContractCreated</text>
+    <text x="85" y="254" class="box-text">con CorrelationId</text>
+  </rect>
+
+  <rect x="350" y="170" width="300" height="110" class="box azure">
+    <text x="368" y="205" class="box-title">Azure Service Bus Topic</text>
+    <text x="368" y="228" class="box-text">contracts.events</text>
+    <text x="368" y="248" class="box-text">Fan-out hacia subscripciones</text>
+  </rect>
+
+  <rect x="760" y="130" width="260" height="110" class="box azure">
+    <text x="778" y="165" class="box-title">Sub: contracts.processing</text>
+    <text x="778" y="188" class="box-text">Function: Processor</text>
+    <text x="778" y="208" class="box-text">Idempotencia + DLQ</text>
+  </rect>
+
+  <rect x="1080" y="130" width="250" height="110" class="box ops">
+    <text x="1098" y="165" class="box-title">DB / External APIs</text>
+    <text x="1098" y="188" class="box-text">Persistencia y side effects</text>
+  </rect>
+
+  <rect x="760" y="300" width="260" height="110" class="box realtime">
+    <text x="778" y="335" class="box-title">Sub: contracts.notifications</text>
+    <text x="778" y="358" class="box-text">Function: Notify</text>
+    <text x="778" y="378" class="box-text">SignalR output binding</text>
+  </rect>
+
+  <rect x="1080" y="300" width="250" height="110" class="box realtime">
+    <text x="1098" y="335" class="box-title">Azure SignalR Service</text>
+    <text x="1098" y="358" class="box-text">Broadcast / Groups / Users</text>
+  </rect>
+
+  <rect x="1080" y="470" width="250" height="110" class="box">
+    <text x="1098" y="505" class="box-title">Clientes Web/Mobile</text>
+    <text x="1098" y="528" class="box-text">Actualización en tiempo real</text>
+  </rect>
+
+  <rect x="760" y="470" width="260" height="110" class="box ops">
+    <text x="778" y="505" class="box-title">Sub: contracts.analytics</text>
+    <text x="778" y="528" class="box-text">Function: Analytics</text>
+    <text x="778" y="548" class="box-text">Data Lake / BI</text>
+  </rect>
+
+  <rect x="350" y="500" width="300" height="130" class="box ops">
+    <text x="368" y="535" class="box-title">Logic Apps (Recurrence)</text>
+    <text x="368" y="558" class="box-text">Trigger diario (scheduler)</text>
+    <text x="368" y="578" class="box-text">Integraciones SaaS / email / Teams</text>
+    <text x="368" y="598" class="box-text">Puede publicar eventos adicionales</text>
+  </rect>
+
+  <path d="M280 225 L350 225" class="arrow"/>
+
+  <path d="M650 210 L760 185" class="arrow"/>
+  <path d="M650 225 L760 355" class="arrow"/>
+  <path d="M650 245 L760 525" class="arrow"/>
+
+  <path d="M1020 185 L1080 185" class="arrow"/>
+  <path d="M1020 355 L1080 355" class="arrow"/>
+  <path d="M1205 410 L1205 470" class="arrow"/>
+
+  <path d="M650 565 L760 565" class="arrow-dashed"/>
+  <path d="M650 535 L650 260" class="arrow-dashed"/>
+
+  <text x="690" y="552" class="note">opcional</text>
+  <text x="540" y="300" class="note">evento único -> múltiples consumidores</text>
+  <text x="775" y="255" class="note">at-least-once + retries + DLQ</text>
+</svg>

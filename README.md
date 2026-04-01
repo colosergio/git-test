@@ -5,12 +5,18 @@ Este repositorio contiene un **paquete práctico para preparar una entrevista t�
 - Guía de narrativa y conceptos senior.
 - Mini proyecto de Azure Functions (Service Bus + SignalR + Timer).
 - Ejemplo de workflow de Logic Apps con trigger diario.
+- Diagrama visual de arquitectura listo para usar en la entrevista.
 
 ## Estructura
 
 - `docs/arquitectura-event-driven-dotnet.md`: guía profesional para explicar arquitectura y decisiones.
+- `docs/arquitectura-event-driven-diagrama.svg`: diagrama completo de la arquitectura.
 - `src/Interview.FunctionsDemo/`: ejemplo base de Function App en .NET aislado.
 - `logicapps/daily-contract-summary.logicapp.json`: ejemplo de scheduler diario.
+
+## Diagrama de arquitectura
+
+![Arquitectura Event-Driven .NET](docs/arquitectura-event-driven-diagrama.svg)
 
 ## Cómo usarlo para la interview
 
