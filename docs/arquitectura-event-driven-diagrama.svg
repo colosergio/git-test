@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980">
+  <defs>
+    <style>
+      .bg { fill: #f1f5f9; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 14; }
+      .lane { fill: #f8fafc; stroke: #e2e8f0; stroke-width: 1.5; rx: 10; }
+      .title { font: 700 34px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 17px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .lane-title { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #1e293b; }
+      .card-title { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .card-text { font: 400 13px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .small { font: 600 12px 'Segoe UI', Arial, sans-serif; fill: #475569; }
+
+      .card { fill: #ffffff; stroke: #64748b; stroke-width: 2; rx: 10; }
+      .api { fill: #eef2ff; stroke: #4f46e5; }
+      .bus { fill: #eff6ff; stroke: #2563eb; }
+      .fn { fill: #f8fafc; stroke: #475569; }
+      .rt { fill: #ecfeff; stroke: #0891b2; }
+      .ops { fill: #f0fdf4; stroke: #16a34a; }
+      .govern { fill: #fff7ed; stroke: #ea580c; }
+
+      .arrow { stroke: #1f2937; stroke-width: 2.6; fill: none; marker-end: url(#arrow); }
+      .dashed { stroke: #334155; stroke-width: 2.2; fill: none; stroke-dasharray: 8 7; marker-end: url(#arrow); }
+      .thin { stroke-width: 2; }
+    </style>
+
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0,0 10,4 0,8" fill="#1f2937"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="980" class="bg"/>
+  <rect x="24" y="24" width="1552" height="932" class="panel"/>
+
+  <text x="52" y="72" class="title">Arquitectura Event-Driven .NET en Azure</text>
+  <text x="52" y="102" class="subtitle">Functions + Service Bus (Topic/Subscriptions) + SignalR + Logic Apps | Diseño para entrevistas senior.</text>
+
+  <!-- Lanes -->
+  <rect x="52" y="132" width="1496" height="118" class="lane"/>
+  <text x="70" y="160" class="lane-title">1) Ingesta y publicación del evento</text>
+
+  <rect x="52" y="266" width="1496" height="320" class="lane"/>
+  <text x="70" y="294" class="lane-title">2) Backbone de mensajería y fan-out por dominio</text>
+
+  <rect x="52" y="602" width="1496" height="170" class="lane"/>
+  <text x="70" y="630" class="lane-title">3) Real-time y analítica</text>
+
+  <rect x="52" y="788" width="1496" height="140" class="lane"/>
+  <text x="70" y="816" class="lane-title">4) Gobierno, operación y scheduling</text>
+
+  <!-- Row 1 -->
+  <rect x="90" y="172" width="310" height="62" class="card api"/>
+  <text x="106" y="198" class="card-title">Producer/API (.NET Web API)</text>
+  <text x="106" y="218" class="card-text">Publica ContractCreated / ContractUpdated</text>
+
+  <rect x="460" y="172" width="380" height="62" class="card bus"/>
+  <text x="476" y="198" class="card-title">Azure Service Bus Topic: contracts.events</text>
+  <text x="476" y="218" class="card-text">Evento único que se distribuye a múltiples subscriptions</text>
+
+  <path d="M400 203 L460 203" class="arrow"/>
+  <text x="412" y="193" class="small">AMQP</text>
+
+  <!-- Row 2: subs and functions -->
+  <rect x="120" y="330" width="300" height="210" class="card bus"/>
+  <text x="138" y="360" class="card-title">Subscription A</text>
+  <text x="138" y="380" class="card-text">contracts.processing</text>
+  <rect x="138" y="398" width="264" height="122" class="card fn"/>
+  <text x="152" y="424" class="card-title">Function: ContractProcessor</text>
+  <text x="152" y="446" class="card-text">- Valida schema y versión</text>
+  <text x="152" y="466" class="card-text">- Idempotencia por EventId</text>
+  <text x="152" y="486" class="card-text">- Persistencia + llamadas externas</text>
+  <text x="152" y="506" class="card-text">- Complete / Abandon</text>
+
+  <rect x="470" y="330" width="300" height="210" class="card bus"/>
+  <text x="488" y="360" class="card-title">Subscription B</text>
+  <text x="488" y="380" class="card-text">contracts.notifications</text>
+  <rect x="488" y="398" width="264" height="122" class="card fn"/>
+  <text x="502" y="424" class="card-title">Function: RealtimeNotification</text>
+  <text x="502" y="446" class="card-text">- Mapea evento a DTO de cliente</text>
+  <text x="502" y="466" class="card-text">- Routing por Group/User</text>
+  <text x="502" y="486" class="card-text">- Emite vía Azure SignalR</text>
+
+  <rect x="820" y="330" width="300" height="210" class="card bus"/>
+  <text x="838" y="360" class="card-title">Subscription C</text>
+  <text x="838" y="380" class="card-text">contracts.analytics</text>
+  <rect x="838" y="398" width="264" height="122" class="card fn"/>
+  <text x="852" y="424" class="card-title">Function: AnalyticsProjector</text>
+  <text x="852" y="446" class="card-text">- Enriquecimiento del evento</text>
+  <text x="852" y="466" class="card-text">- Proyección a lake/warehouse</text>
+  <text x="852" y="486" class="card-text">- Métricas near-real-time</text>
+
+  <rect x="1170" y="330" width="340" height="210" class="card govern"/>
+  <text x="1190" y="360" class="card-title">Confiabilidad / Operación</text>
+  <text x="1190" y="388" class="card-text">• Retry con backoff</text>
+  <text x="1190" y="410" class="card-text">• Dead-Letter Queue (poison messages)</text>
+  <text x="1190" y="432" class="card-text">• Application Insights + traces</text>
+  <text x="1190" y="454" class="card-text">• CorrelationId end-to-end</text>
+  <text x="1190" y="476" class="card-text">• Alertas por DLQ / lag / errores</text>
+
+  <path d="M650 234 L270 330" class="arrow"/>
+  <path d="M650 234 L620 330" class="arrow"/>
+  <path d="M650 234 L970 330" class="arrow"/>
+
+  <!-- Row 3 outputs -->
+  <rect x="250" y="660" width="340" height="86" class="card ops"/>
+  <text x="268" y="690" class="card-title">DB / ERP / APIs externas</text>
+  <text x="268" y="712" class="card-text">Estado de contrato + side effects transaccionales</text>
+
+  <rect x="640" y="660" width="340" height="86" class="card rt"/>
+  <text x="658" y="690" class="card-title">Azure SignalR Service</text>
+  <text x="658" y="712" class="card-text">Broadcast, grupos por ContractId, usuarios autenticados</text>
+
+  <rect x="1030" y="660" width="380" height="86" class="card rt"/>
+  <text x="1048" y="690" class="card-title">Clientes Web/Mobile/Backoffice</text>
+  <text x="1048" y="712" class="card-text">UI reactiva: cambios de estado en tiempo real</text>
+
+  <path d="M270 540 L420 660" class="arrow thin"/>
+  <path d="M620 540 L810 660" class="arrow thin"/>
+  <path d="M980 540 L1180 660" class="arrow thin"/>
+  <path d="M980 703 L1030 703" class="arrow thin"/>
+
+  <!-- Row 4 scheduling/governance -->
+  <rect x="120" y="836" width="520" height="74" class="card ops"/>
+  <text x="138" y="864" class="card-title">Logic Apps (Recurrence diaria)</text>
+  <text x="138" y="886" class="card-text">Orquesta integraciones (email/Teams/SaaS) y puede publicar eventos en Service Bus.</text>
+
+  <rect x="700" y="836" width="420" height="74" class="card govern"/>
+  <text x="718" y="864" class="card-title">Seguridad y gobierno</text>
+  <text x="718" y="886" class="card-text">Managed Identity, Key Vault, RBAC, políticas de retención y auditoría.</text>
+
+  <rect x="1160" y="836" width="350" height="74" class="card govern"/>
+  <text x="1178" y="864" class="card-title">SLA / SLO</text>
+  <text x="1178" y="886" class="card-text">p95 latency, throughput, error budget, MTTR.</text>
+
+  <path d="M640 873 L840 234" class="dashed"/>
+  <text x="654" y="856" class="small">trigger schedule / integración</text>
+
+  <!-- Legend -->
+  <rect x="1180" y="150" width="330" height="148" class="card"/>
+  <text x="1200" y="176" class="card-title">Leyenda</text>
+  <rect x="1200" y="188" width="18" height="18" class="card api"/><text x="1228" y="202" class="small">Productor/API</text>
+  <rect x="1200" y="214" width="18" height="18" class="card bus"/><text x="1228" y="228" class="small">Service Bus (topic/subscriptions)</text>
+  <rect x="1200" y="240" width="18" height="18" class="card fn"/><text x="1228" y="254" class="small">Azure Functions</text>
+  <rect x="1200" y="266" width="18" height="18" class="card rt"/><text x="1228" y="280" class="small">Tiempo real (SignalR/clients)</text>
+</svg>
