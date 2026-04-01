@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2019-05-01/workflowdefinition.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {},
+  "triggers": {
+    "Every_Day": {
+      "type": "Recurrence",
+      "recurrence": {
+        "frequency": "Day",
+        "interval": 1,
+        "timeZone": "UTC",
+        "schedule": {
+          "hours": [
+            12
+          ],
+          "minutes": [
+            0
+          ]
+        }
+      }
+    }
+  },
+  "actions": {
+    "Compose_Interview_Message": {
+      "type": "Compose",
+      "inputs": "Daily integration summary triggered from Logic Apps"
+    }
+  },
+  "outputs": {}
+}
