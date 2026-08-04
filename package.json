@@ -5,6 +5,10 @@
   "type": "module",
   "scripts": {
     "start": "python3 -m http.server 4173",
-    "test": "node --test"
+    "test": "node --test",
+    "mobile:start": "npm --prefix mobile start",
+    "mobile:android": "npm --prefix mobile run android",
+    "mobile:ios": "npm --prefix mobile run ios",
+    "mobile:typecheck": "npm --prefix mobile run typecheck"
   }
 }

@@ -1,6 +1,6 @@
 # Arena — MVP free-to-play
 
-Primera versión navegable de **Arena**, una plataforma para crear y aceptar retos competitivos entre jugadores. Este MVP usa puntos virtuales sin valor monetario: no procesa apuestas, depósitos ni retiros.
+Primera versión de **Arena**, una plataforma para crear y aceptar retos competitivos entre jugadores. El repositorio conserva el prototipo web original e incorpora la app móvil en React Native/Expo. Este MVP usa puntos virtuales sin valor monetario: no procesa apuestas, depósitos ni retiros.
 
 ## Funcionalidades
 
@@ -10,10 +10,27 @@ Primera versión navegable de **Arena**, una plataforma para crear y aceptar ret
 - Confirmación visual al aceptar un reto.
 - Ranking de temporada e historial de actividad.
 - Modal de ayuda y navegación mobile.
+- App móvil Expo/React Native con persistencia local de retos y actividad.
 - Arquitectura de producto completa en [`ARQUITECTURA_APP_APUESTAS_ESPORTS.md`](./ARQUITECTURA_APP_APUESTAS_ESPORTS.md).
 - Plan operativo para el socio de negocio en [`PLAN_SOCIO_NEGOCIO_LEGAL_MARKETING_GROWTH.md`](./PLAN_SOCIO_NEGOCIO_LEGAL_MARKETING_GROWTH.md).
 
 ## Ejecutar localmente
+
+### App móvil
+
+```bash
+cd mobile
+npm install
+npm start
+```
+
+Desde Expo se puede abrir el proyecto en iOS, Android o web. Para validar tipos:
+
+```bash
+npm run typecheck
+```
+
+### Prototipo web original
 
 No hay dependencias de producción. Se necesita Python 3 o cualquier servidor HTTP estático:
 
@@ -29,6 +46,7 @@ Luego visita [http://localhost:4173](http://localhost:4173).
 
 ```text
 .
+├── mobile/                                 # App Expo + React Native + TypeScript
 ├── index.html                              # Layout y vistas
 ├── styles.css                             # Sistema visual responsive
 ├── app.js                                 # Interacciones y renderizado
@@ -46,4 +64,4 @@ npm test
 
 ## Alcance de esta versión
 
-Esta implementación valida experiencia de usuario y navegación. La integración con cuentas de plataforma, verificación automática de resultados, backend, autenticación, KYC, ledger y pagos pertenecen a fases posteriores y requieren acuerdos oficiales y aprobación legal por jurisdicción.
+Esta implementación valida experiencia de usuario, creación/aceptación de retos y persistencia local. La integración con cuentas de plataforma, verificación automática de resultados, backend, autenticación, KYC, ledger y pagos pertenecen a fases posteriores y requieren acuerdos oficiales y aprobación legal por jurisdicción.
