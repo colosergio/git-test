@@ -11,6 +11,7 @@ Primera versión navegable de **Arena**, una plataforma para crear y aceptar ret
 - Ranking de temporada e historial de actividad.
 - Modal de ayuda y navegación mobile.
 - Arquitectura de producto completa en [`ARQUITECTURA_APP_APUESTAS_ESPORTS.md`](./ARQUITECTURA_APP_APUESTAS_ESPORTS.md).
+- Plan operativo para el socio de negocio en [`PLAN_SOCIO_NEGOCIO_LEGAL_MARKETING_GROWTH.md`](./PLAN_SOCIO_NEGOCIO_LEGAL_MARKETING_GROWTH.md).
 
 ## Ejecutar localmente
 
@@ -33,7 +34,8 @@ Luego visita [http://localhost:4173](http://localhost:4173).
 ├── app.js                                 # Interacciones y renderizado
 ├── data.js                                # Datos demo y lógica testeable
 ├── tests/data.test.js                     # Pruebas unitarias
-└── ARQUITECTURA_APP_APUESTAS_ESPORTS.md   # Arquitectura técnica y de producto
+├── ARQUITECTURA_APP_APUESTAS_ESPORTS.md   # Arquitectura técnica y de producto
+└── PLAN_SOCIO_NEGOCIO_LEGAL_MARKETING_GROWTH.md # Plan del socio de negocio
 ```
 
 ## Pruebas
