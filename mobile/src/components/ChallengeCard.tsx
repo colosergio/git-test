@@ -1,19 +1,29 @@
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
 
 import { games, platforms } from "../data/catalog";
 import { colors, radius, spacing } from "../theme";
 import type { Challenge } from "../types";
+import { useAuth } from "../context/AuthContext";
 
 interface ChallengeCardProps {
   challenge: Challenge;
-  onAccept: (id: string) => void;
+  onAccept: (id: string) => Promise<void>;
   compact?: boolean;
 }
 
 export function ChallengeCard({ challenge, onAccept, compact = false }: ChallengeCardProps) {
+  const { user } = useAuth();
+  const [accepting, setAccepting] = useState(false);
   const game = games[challenge.gameId];
   const accepted = challenge.status === "accepted";
+  const ownChallenge = challenge.creator.id === user?.id;
+
+  const accept = async () => {
+    setAccepting(true);
+    try { await onAccept(challenge.id); } catch (error) { Alert.alert("No pudimos aceptar el reto", error instanceof Error ? error.message : "Intenta nuevamente."); } finally { setAccepting(false); }
+  };
 
   return (
     <View style={[styles.card, compact && styles.compactCard]}>
@@ -37,13 +47,13 @@ export function ChallengeCard({ challenge, onAccept, compact = false }: Challeng
         </View>
         <TouchableOpacity
           style={[styles.button, accepted && styles.acceptedButton]}
-          disabled={accepted}
-          onPress={() => onAccept(challenge.id)}
+          disabled={accepted || ownChallenge || accepting}
+          onPress={accept}
           accessibilityRole="button"
           accessibilityLabel={accepted ? "Reto aceptado" : `Aceptar reto de ${challenge.creator.name}`}
         >
-          <Text style={[styles.buttonText, accepted && styles.acceptedButtonText]}>{accepted ? "Reto aceptado" : challenge.availability}</Text>
-          <Ionicons name={accepted ? "checkmark-circle" : "arrow-forward"} size={18} color={accepted ? colors.green : colors.white} />
+          <Text style={[styles.buttonText, accepted && styles.acceptedButtonText]}>{ownChallenge ? "Tu reto publicado" : accepting ? "Aceptando…" : accepted ? "Reto aceptado" : challenge.availability}</Text>
+          <Ionicons name={ownChallenge ? "person-circle-outline" : accepted ? "checkmark-circle" : "arrow-forward"} size={18} color={accepted ? colors.green : colors.white} />
         </TouchableOpacity>
       </View>
     </View>

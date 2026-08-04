@@ -1,7 +1,12 @@
 node_modules/
 mobile/node_modules/
+api/node_modules/
 .expo/
 mobile/.expo/
+api/data/*.json
+api/data/*.tmp
+.env
+*/.env
 dist/
 web-build/
 .DS_Store

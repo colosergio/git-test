@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { currentPlayer } from "../data/seed";
+import { useAuth } from "../context/AuthContext";
 import { colors, radius, spacing } from "../theme";
 
 interface ScreenHeaderProps {
@@ -11,6 +11,7 @@ interface ScreenHeaderProps {
 }
 
 export function ScreenHeader({ eyebrow, title, showProfile = false }: ScreenHeaderProps) {
+  const { user } = useAuth();
   return (
     <View style={styles.header}>
       <View style={styles.copy}>
@@ -19,7 +20,7 @@ export function ScreenHeader({ eyebrow, title, showProfile = false }: ScreenHead
       </View>
       {showProfile ? (
         <TouchableOpacity style={styles.profile} accessibilityRole="button" accessibilityLabel="Abrir perfil">
-          <Text style={styles.initials}>{currentPlayer.initials}</Text>
+          <Text style={styles.initials}>{user?.initials ?? "A"}</Text>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity style={styles.notification} accessibilityRole="button" accessibilityLabel="Notificaciones">

@@ -9,6 +9,10 @@
     "mobile:start": "npm --prefix mobile start",
     "mobile:android": "npm --prefix mobile run android",
     "mobile:ios": "npm --prefix mobile run ios",
-    "mobile:typecheck": "npm --prefix mobile run typecheck"
+    "mobile:typecheck": "npm --prefix mobile run typecheck",
+    "api:start": "npm --prefix api start",
+    "api:dev": "npm --prefix api run dev",
+    "api:test": "npm --prefix api test",
+    "api:typecheck": "npm --prefix api run typecheck"
   }
 }

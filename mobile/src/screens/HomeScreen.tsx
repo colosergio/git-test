@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-nati
 import { ChallengeCard } from "../components/ChallengeCard";
 import { ScreenHeader } from "../components/ScreenHeader";
 import { useChallenges } from "../context/ChallengeContext";
+import { useAuth } from "../context/AuthContext";
 import { colors, radius, spacing } from "../theme";
 
 interface HomeScreenProps {
@@ -13,11 +14,12 @@ interface HomeScreenProps {
 
 export function HomeScreen({ onCreate, onExplore }: HomeScreenProps) {
   const { challenges, acceptChallenge } = useChallenges();
+  const { user } = useAuth();
   const openChallenges = challenges.filter((challenge) => challenge.status === "open");
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-      <ScreenHeader eyebrow="ARENA BETA" title="Hola, Leo" showProfile />
+      <ScreenHeader eyebrow="ARENA BETA" title={`Hola, ${user?.displayName.split(" ")[0] ?? "player"}`} showProfile />
       <View style={styles.hero}>
         <Text style={styles.heroEyebrow}>COMPITE · DEMUESTRA · SUBE</Text>
         <Text style={styles.heroTitle}>Tu próximo rival ya está esperando.</Text>

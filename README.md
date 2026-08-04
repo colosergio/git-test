@@ -11,16 +11,40 @@ Primera versión de **Arena**, una plataforma para crear y aceptar retos competi
 - Ranking de temporada e historial de actividad.
 - Modal de ayuda y navegación mobile.
 - App móvil Expo/React Native con persistencia local de retos y actividad.
+- Onboarding, registro/login, sesión segura y perfil con gamertags.
+- API free-to-play para sincronizar perfiles, retos, matches, actividad y resultados.
 - Arquitectura de producto completa en [`ARQUITECTURA_APP_APUESTAS_ESPORTS.md`](./ARQUITECTURA_APP_APUESTAS_ESPORTS.md).
 - Plan operativo para el socio de negocio en [`PLAN_SOCIO_NEGOCIO_LEGAL_MARKETING_GROWTH.md`](./PLAN_SOCIO_NEGOCIO_LEGAL_MARKETING_GROWTH.md).
 
 ## Ejecutar localmente
 
-### App móvil
+### 1. API free-to-play
+
+Requiere Node.js 24 o superior:
+
+```bash
+cd api
+npm install
+cp .env.example .env
+npm start
+```
+
+La API queda disponible en `http://localhost:3333`. Los datos de desarrollo se guardan en `api/data/arena.json` y no se versionan. Endpoints principales:
+
+- `POST /v1/auth/register` y `POST /v1/auth/login`
+- `GET/PATCH /v1/me`
+- `GET/POST /v1/challenges`
+- `POST /v1/challenges/:id/accept`
+- `GET /v1/matches`
+- `POST /v1/matches/:id/report-result`
+- `GET /v1/activity`
+
+### 2. App móvil
 
 ```bash
 cd mobile
 npm install
+cp .env.example .env
 npm start
 ```
 
@@ -29,6 +53,8 @@ Desde Expo se puede abrir el proyecto en iOS, Android o web. Para validar tipos:
 ```bash
 npm run typecheck
 ```
+
+En un teléfono físico, cambia `EXPO_PUBLIC_API_URL` por la IP local del computador, por ejemplo `http://192.168.1.50:3333/v1`. En Android Emulator se usa `http://10.0.2.2:3333/v1`.
 
 ### Prototipo web original
 
@@ -47,6 +73,7 @@ Luego visita [http://localhost:4173](http://localhost:4173).
 ```text
 .
 ├── mobile/                                 # App Expo + React Native + TypeScript
+├── api/                                    # API Fastify + TypeScript
 ├── index.html                              # Layout y vistas
 ├── styles.css                             # Sistema visual responsive
 ├── app.js                                 # Interacciones y renderizado

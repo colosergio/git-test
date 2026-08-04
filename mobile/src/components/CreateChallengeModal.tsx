@@ -25,16 +25,24 @@ interface CreateChallengeModalProps {
 export function CreateChallengeModal({ visible, onClose, onCreated }: CreateChallengeModalProps) {
   const { createChallenge } = useChallenges();
   const [form, setForm] = useState<CreateChallengeInput>(initialForm);
+  const [submitting, setSubmitting] = useState(false);
 
-  const submit = () => {
+  const submit = async () => {
     const errors = validateChallenge(form);
     if (errors.length) {
       Alert.alert("Revisa el reto", errors[0]);
       return;
     }
-    createChallenge(form);
-    setForm(initialForm);
-    onCreated();
+    setSubmitting(true);
+    try {
+      await createChallenge(form);
+      setForm(initialForm);
+      onCreated();
+    } catch (error) {
+      Alert.alert("No pudimos publicar el reto", error instanceof Error ? error.message : "Intenta nuevamente.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -54,7 +62,7 @@ export function CreateChallengeModal({ visible, onClose, onCreated }: CreateChal
 
           <FieldLabel>Plataforma</FieldLabel>
           <View style={styles.optionGrid}>
-            {platformOptions.slice(0, 3).map(([id, label]) => <Choice key={id} label={label} selected={form.platformId === id} onPress={() => setForm((value) => ({ ...value, platformId: id as PlatformId }))} />)}
+            {platformOptions.map(([id, label]) => <Choice key={id} label={label} selected={form.platformId === id} onPress={() => setForm((value) => ({ ...value, platformId: id as PlatformId }))} />)}
           </View>
 
           <FieldLabel>Modo</FieldLabel>
@@ -82,8 +90,8 @@ export function CreateChallengeModal({ visible, onClose, onCreated }: CreateChal
             placeholderTextColor={colors.textMuted}
           />
 
-          <TouchableOpacity style={styles.submit} onPress={submit} accessibilityRole="button">
-            <Text style={styles.submitText}>Publicar reto</Text><Ionicons name="arrow-forward" size={19} color={colors.white} />
+          <TouchableOpacity style={styles.submit} onPress={submit} disabled={submitting} accessibilityRole="button">
+            <Text style={styles.submitText}>{submitting ? "Publicando…" : "Publicar reto"}</Text><Ionicons name="arrow-forward" size={19} color={colors.white} />
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>

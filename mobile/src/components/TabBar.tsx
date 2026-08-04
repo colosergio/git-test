@@ -9,6 +9,7 @@ const tabs: { id: RootTab; label: string; icon: keyof typeof Ionicons.glyphMap; 
   { id: "challenges", label: "Retos", icon: "flash-outline", activeIcon: "flash" },
   { id: "ranking", label: "Ranking", icon: "trophy-outline", activeIcon: "trophy" },
   { id: "activity", label: "Actividad", icon: "time-outline", activeIcon: "time" },
+  { id: "profile", label: "Perfil", icon: "person-outline", activeIcon: "person" },
 ];
 
 interface TabBarProps {
