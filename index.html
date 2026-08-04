@@ -1,7 +1,186 @@
-<!DOCTYPE html>
-<html>
-    <body>
-        <h1>Header</h1>
-        <p>New comment</p>
-    </body>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#090f1d" />
+    <meta
+      name="description"
+      content="Arena — prototipo free-to-play para crear y gestionar retos competitivos entre gamers."
+    />
+    <title>Arena — Retos competitivos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegación principal">
+        <a class="brand" href="#inicio" aria-label="Arena, ir al inicio">
+          <span class="brand-mark">A</span>
+          <span>ARENA</span>
+        </a>
+
+        <nav class="main-nav">
+          <a class="nav-item active" href="#inicio" data-section="inicio">
+            <span aria-hidden="true">⌂</span> Inicio
+          </a>
+          <a class="nav-item" href="#retos" data-section="retos">
+            <span aria-hidden="true">⚔</span> Retos
+          </a>
+          <a class="nav-item" href="#ranking" data-section="ranking">
+            <span aria-hidden="true">♜</span> Ranking
+          </a>
+          <a class="nav-item" href="#actividad" data-section="actividad">
+            <span aria-hidden="true">◷</span> Actividad
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="beta-card">
+            <span class="beta-pill">BETA</span>
+            <strong>Modo free-to-play</strong>
+            <p>Esta versión no utiliza dinero real.</p>
+          </div>
+          <button class="nav-item button-reset" id="helpButton">
+            <span aria-hidden="true">?</span> Ayuda y reglas
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content" id="mainContent">
+        <header class="topbar">
+          <button class="mobile-menu button-reset" id="menuButton" aria-label="Abrir menú">☰</button>
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="searchInput" type="search" placeholder="Buscar jugador o reto" />
+          </label>
+          <div class="top-actions">
+            <button class="icon-button" aria-label="Notificaciones">
+              ♢<span class="notification-dot"></span>
+            </button>
+            <button class="profile-button" id="profileButton">
+              <span class="avatar">LM</span>
+              <span class="profile-copy"><strong>Leo Méndez</strong><small>@leo10</small></span>
+              <span aria-hidden="true">⌄</span>
+            </button>
+          </div>
+        </header>
+
+        <section class="page-section active" id="inicio" aria-labelledby="welcomeTitle">
+          <div class="hero">
+            <div class="hero-copy">
+              <span class="eyebrow">COMPITE · DEMUESTRA · SUBE</span>
+              <h1 id="welcomeTitle">Tu próximo rival<br />ya está esperando.</h1>
+              <p>Crea retos, compite en tus juegos favoritos y construye tu reputación.</p>
+              <div class="hero-actions">
+                <button class="primary-button" data-open-challenge>Crear un reto <span>＋</span></button>
+                <button class="secondary-button" data-go-to="retos">Explorar retos</button>
+              </div>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+              <div class="orb orb-one"></div>
+              <div class="orb orb-two"></div>
+              <div class="controller">
+                <div class="controller-center"></div>
+                <div class="dpad">✚</div>
+                <div class="buttons">△ ○<br />□ ×</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-grid" aria-label="Resumen de jugador">
+            <article class="stat-card">
+              <span class="stat-icon purple">⚡</span>
+              <div><small>Racha actual</small><strong>4 victorias</strong></div>
+              <span class="trend positive">+2 esta semana</span>
+            </article>
+            <article class="stat-card">
+              <span class="stat-icon cyan">◆</span>
+              <div><small>Reputación</small><strong>4.9 <span class="stars">★★★★★</span></strong></div>
+              <span class="trend">28 partidas</span>
+            </article>
+            <article class="stat-card">
+              <span class="stat-icon pink">♜</span>
+              <div><small>Posición global</small><strong>#1,284</strong></div>
+              <span class="trend positive">↑ 116 puestos</span>
+            </article>
+          </div>
+
+          <div class="section-heading">
+            <div><span class="eyebrow">ENCUENTRA TU PARTIDA</span><h2>Retos destacados</h2></div>
+            <button class="text-button" data-go-to="retos">Ver todos →</button>
+          </div>
+          <div class="challenge-grid" id="featuredChallenges"></div>
+        </section>
+
+        <section class="page-section" id="retos" aria-labelledby="challengesTitle">
+          <div class="section-heading page-title">
+            <div><span class="eyebrow">MATCHMAKING</span><h1 id="challengesTitle">Retos disponibles</h1><p>Encuentra un rival de tu nivel y acepta el desafío.</p></div>
+            <button class="primary-button" data-open-challenge>Crear reto <span>＋</span></button>
+          </div>
+          <div class="filter-row" id="gameFilters" aria-label="Filtrar por juego">
+            <button class="filter active" data-filter="Todos">Todos</button>
+            <button class="filter" data-filter="EA SPORTS FC 26">EA SPORTS FC</button>
+            <button class="filter" data-filter="NBA 2K26">NBA 2K</button>
+            <button class="filter" data-filter="Rocket League">Rocket League</button>
+          </div>
+          <div class="challenge-grid full" id="allChallenges"></div>
+          <p class="empty-state" id="emptyState" hidden>No encontramos retos con ese criterio.</p>
+        </section>
+
+        <section class="page-section" id="ranking" aria-labelledby="rankingTitle">
+          <div class="section-heading page-title">
+            <div><span class="eyebrow">CLASIFICACIÓN DE TEMPORADA</span><h1 id="rankingTitle">Ranking Arena</h1><p>Los competidores con mejor rendimiento de la comunidad.</p></div>
+          </div>
+          <div class="leaderboard" id="leaderboard"></div>
+        </section>
+
+        <section class="page-section" id="actividad" aria-labelledby="activityTitle">
+          <div class="section-heading page-title">
+            <div><span class="eyebrow">TU HISTORIAL</span><h1 id="activityTitle">Actividad reciente</h1><p>Revisa resultados y cambios en tu reputación.</p></div>
+          </div>
+          <div class="activity-list" id="activityList"></div>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="modal" id="challengeModal">
+      <form id="challengeForm" method="dialog">
+        <div class="modal-header">
+          <div><span class="eyebrow">NUEVO MATCH</span><h2>Crear un reto</h2></div>
+          <button class="close-button" value="cancel" aria-label="Cerrar">×</button>
+        </div>
+        <p class="modal-note">Configura una partida amistosa. Esta beta utiliza puntos Arena sin valor monetario.</p>
+        <div class="form-grid">
+          <label>Juego<select name="game" required><option>EA SPORTS FC 26</option><option>NBA 2K26</option><option>Rocket League</option></select></label>
+          <label>Plataforma<select name="platform" required><option>PlayStation 5</option><option>Xbox Series</option><option>PC</option></select></label>
+          <label>Modo<select name="mode" required><option>1 vs 1</option><option>2 vs 2</option></select></label>
+          <label>Puntos Arena<input name="points" type="number" min="10" max="500" value="50" required /></label>
+          <label class="wide">Horario<input name="time" type="text" value="Disponible ahora" maxlength="40" required /></label>
+        </div>
+        <label class="checkbox"><input type="checkbox" required /> Acepto las reglas de fair play y verificación de resultados.</label>
+        <div class="modal-actions">
+          <button class="secondary-button" value="cancel">Cancelar</button>
+          <button class="primary-button" value="default">Publicar reto</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="modal compact" id="helpModal">
+      <div class="modal-header"><div><span class="eyebrow">CENTRO DE AYUDA</span><h2>Cómo funciona Arena</h2></div><button class="close-button" data-close-help aria-label="Cerrar">×</button></div>
+      <ol class="steps">
+        <li><span>1</span><div><strong>Crea o acepta un reto</strong><p>Elige juego, plataforma y reglas claras.</p></div></li>
+        <li><span>2</span><div><strong>Juega limpio</strong><p>Coordina el lobby con tu rival y completa la partida.</p></div></li>
+        <li><span>3</span><div><strong>Reporta el resultado</strong><p>Ambos jugadores confirman el marcador para cerrar el reto.</p></div></li>
+      </ol>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="app.js"></script>
+  </body>
 </html>

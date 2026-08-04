@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "Arena",
+    "slug": "arena-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.arena.mobile"
+    },
+    "android": {
+      "package": "com.arena.mobile",
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    }
+  }
+}
